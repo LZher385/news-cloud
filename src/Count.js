@@ -1,6 +1,6 @@
 var WordPOS = require('wordpos'),
 wordpos = new WordPOS();
-const data = require('../../top-headlines.json')
+const data = require('../top-headlines.json')
 
 
 const {articles} = data;
