@@ -1,0 +1,27 @@
+#+TITLE: Todo
+* check if api can have similar headlines with similar words, or if it is programmed not to have the same headlines
+* what to destructure: url, title, description, date, source. url image?
+* from headline -> parse relevant words -> each word object is associated to a headline/urlimage
+** is it useful to have multiple words having the pointing to the same article or just have only one link to each article everytime the cloud is generated?
+** shoudl each word link directly to the article or should we do a google news query with the keyword?
+* [[https://www.npmjs.com/package/wordpos][extract nouns, verbs, adjectives etc]] - only can get single words
+* [[https://www.npmjs.com/package/node-rake][extract phrases]]
+* [[https://www.npmjs.com/package/keyword-extractor][extract ngrams]]
+* try single word nouns first - limit to 50 words?
+#+begin_src js
+const {articles} = data; //articles array of articles
+const hashmap;
+const wordlist = articles.map(article => {
+    const {title, content, url} = article;
+    return getNouns(title).map(noun => { // get array objects, each with the word, url and content
+        return { key: noun, url: url, content: content };
+    }) // each article is mapped to an array of objects (above)
+}) // check worid frequency from here?
+#+end_src
+* experiment with ngrams, key phrases
+** combine single word list and list of phrases?
+** else test how json returned works with frequency
+* wordlist can have same words with different url -> combine them to a single word object, increasing count along the way
+* modify list of stopwords in wordpos
+* include words that do not belong in any POS, exclude verbs
+** use getPOs - check speed
