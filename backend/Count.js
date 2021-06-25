@@ -12,7 +12,7 @@ let countArr = [];
 newsapi.v2.topHeadlines({
     category: 'general',
     language: 'en',
-    pageSize: 50
+    pageSize: 100,
 }).then(response => {
     const {articles} = response;
     Promise.all(articles.map(async (article) => {
@@ -20,8 +20,9 @@ newsapi.v2.topHeadlines({
         let {title} = article;
         const indMatch = title.search(re);
         title = indMatch != -1 ? title.substring(0, indMatch) : title;
-        await wordpos.getNouns(title, function(result) {
-            result.map((keyword)=>{
+        await wordpos.getPOS(title, function(result) {
+            const combinedArray = [...result.nouns, ...result.rest];
+            combinedArray.map((keyword)=>{
             const lowerCaseWord = keyword.toLowerCase();
             if (!wordmap.has(lowerCaseWord)) {
                 wordmap.set(lowerCaseWord, countArr.length);
