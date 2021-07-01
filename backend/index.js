@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 var cors = require('cors');
-const port = 3000
+const port = 3001
 
 const NewsAPI = require('newsapi');
 const newsapi = new NewsAPI('534d871bcef144f6b602c1d22327cd33'); // key in ur fackin api
@@ -18,15 +18,27 @@ app.get('/', (req, res) => {
 })
 
 app.get('/generate', (req, res) => {
+  const { category, country, keyword } = req.query;
   wordpos = new WordPOS({stopwords});
+  console.log(
+    {
+        category: category,
+        language: 'en',
+        pageSize: 100,
+        ...(country && { country: country }),
+        ...(keyword && { q: keyword})}
+  )
 
   let re = /( - [A-Z])|( \| [A-Z])|( - [0-9])|( \| [0-9])/g
   let wordmap = new Map()
   let countArr = [];
   newsapi.v2.topHeadlines({
-      category: 'general',
+      category: category,
       language: 'en',
       pageSize: 100,
+      ...(country && { country: country }),
+      ...(keyword && { q: keyword})
+
   }).then(response => {
       const {articles} = response;
       Promise.all(articles.map(async (article) => {
@@ -48,7 +60,7 @@ app.get('/generate', (req, res) => {
               }})
           })
       })).then(x => {
-          countArr.sort((first, second) => first.count - second.count)
+          countArr.sort((first, second) => second.count - first.count)
           res.json({ wordmap: [...wordmap], countArr });
       })
   })
