@@ -20,14 +20,6 @@ app.get('/', (req, res) => {
 app.get('/generate', (req, res) => {
   const { category, country, keyword } = req.query;
   wordpos = new WordPOS({stopwords});
-  console.log(
-    {
-        category: category,
-        language: 'en',
-        pageSize: 100,
-        ...(country && { country: country }),
-        ...(keyword && { q: keyword})}
-  )
 
   let re = /( - [A-Z])|( \| [A-Z])|( - [0-9])|( \| [0-9])/g
   let wordmap = new Map()
