@@ -4,7 +4,7 @@ var cors = require("cors");
 const port = 3001;
 
 const NewsAPI = require("newsapi");
-const newsapi = new NewsAPI("534d871bcef144f6b602c1d22327cd33"); // key in ur fackin api
+const newsapi = new NewsAPI(""); // key in ur fackin api
 var WordPOS = require("wordpos"),
   wordpos = new WordPOS();
 const stopwords = require("./stopwords");
