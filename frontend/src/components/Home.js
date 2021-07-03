@@ -26,7 +26,6 @@ const Home = () => {
       .then((res) => {
         const { countArr } = res.data; //wordmap not needed at all?
         setCountArr(countArr);
-        console.log("data set");
         setData(
           countArr.slice(0, 50).map((obj, index) => {
             // should probably slice in backend to reduce data
