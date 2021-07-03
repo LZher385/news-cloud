@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 
 import QueriesForm from "./QueriesForm";
-import WordCloud from "./WordCloud";
 import KeywordData from "./KeywordData";
 import { TagCloud } from "react-tagcloud";
 
@@ -36,7 +35,7 @@ const Home = () => {
   };
   const keywordClick = (tag) => {
     console.log(`'${tag.value}' was selected`);
-    setKeywordObj(countArr[parseInt(tag.key)]);
+    setKeywordObj(countArr[parseInt(tag.key, 10)]);
     setShowKeywordModal(true);
   };
 

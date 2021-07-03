@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 
 const KeywordData = ({ showKeywordModal, setShowKeywordModal, keywordObj }) => {
-  const { keyword, titles, urls } = keywordObj;
+  const { keyword, titles, urls, descriptions, urlToImages } = keywordObj;
 
   return (
     <div>
@@ -15,6 +15,8 @@ const KeywordData = ({ showKeywordModal, setShowKeywordModal, keywordObj }) => {
             return (
               <div>
                 <a href={`${urls[index]}`}>{title}</a>
+                <img alt={`${title}`} src={`${urlToImages[index]}`} />
+                <div>{`${descriptions[index]}`}</div>
               </div>
             );
           })}

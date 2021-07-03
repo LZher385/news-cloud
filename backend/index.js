@@ -4,7 +4,7 @@ var cors = require("cors");
 const port = 3001;
 
 const NewsAPI = require("newsapi");
-const newsapi = new NewsAPI(""); // key in ur fackin api
+const newsapi = new NewsAPI("534d871bcef144f6b602c1d22327cd33"); // key in ur fackin api
 var WordPOS = require("wordpos"),
   wordpos = new WordPOS();
 const stopwords = require("./stopwords");
@@ -36,7 +36,8 @@ app.get("/generate", (req, res) => {
       const { articles } = response;
       Promise.all(
         articles.map(async (article) => {
-          const { url, title: originalTitle } = article;
+          const { url, title: originalTitle, urlToImage } = article;
+          const description = article.description || "No description available";
           let { title } = article;
           const indMatch = title.search(re);
           title = indMatch != -1 ? title.substring(0, indMatch) : title;
@@ -51,6 +52,8 @@ app.get("/generate", (req, res) => {
                   count: 1,
                   urls: [url],
                   titles: [originalTitle],
+                  descriptions: [description],
+                  urlToImages: [urlToImage],
                 });
               } else {
                 const prevIndex = wordmap.get(lowerCaseWord);
@@ -59,6 +62,8 @@ app.get("/generate", (req, res) => {
                   ...prevWordObj,
                   urls: [...prevWordObj.urls, url],
                   titles: [...prevWordObj.titles, originalTitle],
+                  descriptions: [...prevWordObj.descriptions, description],
+                  urlToImages: [...prevWordObj.urlToImages, urlToImage],
                   count: prevWordObj.count + 1,
                 };
               }
