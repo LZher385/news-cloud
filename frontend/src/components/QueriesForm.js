@@ -1,26 +1,36 @@
 import React from "react";
+import {
+  TextField,
+  Button,
+  NativeSelect,
+  InputLabel,
+  FormControl,
+  Typography,
+} from "@material-ui/core";
 
-const QueriesForm = ({ queries, setQueries }) => {
+const QueriesForm = ({ queries, generateCloud }) => {
+  const submitForm = (e) => {
+    e.preventDefault();
+    generateCloud();
+  };
   return (
     <div>
-      <h1>Queries form</h1>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <div>
-          <label for="countriesList">Select a country(Optional)</label>
-          <select
-            name="countriesList"
-            id="countriesList"
+      <Typography variant="h4">Search options</Typography>
+      <form onSubmit={submitForm}>
+        <FormControl>
+          <InputLabel id="countriesList">Select a country</InputLabel>
+          <NativeSelect
+            labelId="countriesList"
+            id="countriesListSelect"
+            defaultValue="global"
             onChange={(e) =>
-              setQueries({
-                ...queries,
-                country:
-                  e.target.value === "-" ? queries.country : e.target.value,
+              (queries.current = {
+                ...queries.current,
+                country: e.target.value === "global" ? "" : e.target.value,
               })
             }
           >
-            <option value="-" selected>
-              -
-            </option>
+            <option value="global">Global</option>
             <option value="au">Australia</option>
             <option value="ca">Canada</option>
             <option value="my">Malaysia</option>
@@ -28,39 +38,47 @@ const QueriesForm = ({ queries, setQueries }) => {
             <option value="sg">Singapore</option>
             <option value="gb">United Kingdom</option>
             <option value="us">America</option>
-          </select>
-        </div>
-        <div>
-          <label for="categoryList">Select a category</label>
-          <select
-            name="categoryList"
-            id="categoryList"
+          </NativeSelect>
+        </FormControl>
+        <FormControl>
+          <InputLabel id="categoryList">Select a category</InputLabel>
+          <NativeSelect
+            labelId="categoryList"
+            id="categoryListSelect"
+            defaultValue="general"
             onChange={(e) =>
-              setQueries({ ...queries, category: e.target.value })
+              (queries.current = {
+                ...queries.current,
+                category: e.target.value,
+              })
             }
           >
             <option value="business">Business</option>
             <option value="entertainment">Entertainment</option>
-            <option value="general" selected>
-              General
-            </option>
+            <option value="general">General</option>
             <option value="health">Health</option>
             <option value="science">Science</option>
             <option value="sports">Sports</option>
             <option value="technology">Technology</option>
-          </select>
-        </div>
-        <div>
-          <label for="keyword">Input an optional keyword</label>
-          <input
+          </NativeSelect>
+        </FormControl>
+        <FormControl>
+          <TextField
+            id="keywordsField"
             type="text"
-            id="keyword"
-            name="keyword"
-            onChange={(e) =>
-              setQueries({ ...queries, keyword: e.target.value })
-            }
-          ></input>
-        </div>
+            name="keywords"
+            label="Keyword(s)"
+            onChange={(e) => {
+              queries.current = {
+                ...queries.current,
+                keywords: e.target.value,
+              };
+            }}
+          />
+        </FormControl>
+        <Button color="primary" variant="contained" type="submit">
+          Generate news cloud
+        </Button>
       </form>
     </div>
   );

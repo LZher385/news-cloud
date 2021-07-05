@@ -3,57 +3,58 @@ import axios from "axios";
 
 import QueriesForm from "./QueriesForm";
 import KeywordData from "./KeywordData";
-import { TagCloud } from "react-tagcloud";
+import WordCloud from "./WordCloud";
+
+import { Typography } from "@material-ui/core";
 
 const Home = () => {
-  const [queries, setQueries] = React.useState({
+  const queries = React.useRef({
     country: "",
     category: "general",
-    keyword: "",
+    keywords: "",
   });
-  const [countArr, setCountArr] = React.useState(null);
+  const dataArr = React.useRef(null);
   const [data, setData] = React.useState(null);
   const [keywordObj, setKeywordObj] = React.useState(null);
   const [showKeywordModal, setShowKeywordModal] = React.useState(false);
+  const [showCloud, setShowCloud] = React.useState(false);
+
+  React.useEffect(() => {
+    generateCloud();
+  }, []);
 
   const generateCloud = () => {
-    //console.log(queries);
+    console.log("queries");
+    console.log(queries.current);
+    setShowCloud(false);
     axios
       .get(
-        `http://localhost:3001/generate?category=${queries.category}&country=${queries.country}&keyword=${queries.keyword}`
+        `http://localhost:3001/generate?category=${queries.current.category}&country=${queries.current.country}&keywords=${queries.current.keywords}`
       )
       .then((res) => {
         const { countArr } = res.data; //wordmap not needed at all?
-        setCountArr(countArr);
+        console.log(res.data);
+        dataArr.current = countArr;
+        console.log(dataArr.current);
         setData(
-          countArr.slice(0, 50).map((obj, index) => {
+          dataArr.current.map((obj, index) => {
             // should probably slice in backend to reduce data
-            return { value: obj.keyword, count: obj.count, key: index };
+            return { value: obj.keyword, count: obj.count, key: `${index}` };
           })
         );
+        setShowCloud(true);
       });
   };
   const keywordClick = (tag) => {
     console.log(`'${tag.value}' was selected`);
-    setKeywordObj(countArr[parseInt(tag.key, 10)]);
+    console.log(tag.key);
+    setKeywordObj(dataArr.current[parseInt(tag.key, 10)]);
     setShowKeywordModal(true);
   };
 
   return (
     <div>
-      <h1>News cloud</h1>
-      <QueriesForm setQueries={setQueries} queries={queries} />
-      <button type="button" onClick={generateCloud}>
-        Generate News Cloud
-      </button>
-      {data && (
-        <TagCloud
-          minSize={12}
-          maxSize={35}
-          tags={data}
-          onClick={keywordClick}
-        ></TagCloud>
-      )}
+      {showCloud && <WordCloud keywordClick={keywordClick} data={data} />}
       {showKeywordModal && (
         <KeywordData
           keywordObj={keywordObj}
@@ -61,6 +62,7 @@ const Home = () => {
           setShowKeywordModal={setShowKeywordModal}
         ></KeywordData>
       )}
+      <QueriesForm queries={queries} generateCloud={generateCloud} />
     </div>
   );
 };

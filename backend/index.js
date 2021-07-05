@@ -4,7 +4,7 @@ var cors = require("cors");
 const port = 3001;
 
 const NewsAPI = require("newsapi");
-const newsapi = new NewsAPI(""); // key in ur fackin api
+const newsapi = new NewsAPI("534d871bcef144f6b602c1d22327cd33"); // key in ur fackin api
 var WordPOS = require("wordpos"),
   wordpos = new WordPOS();
 const stopwords = require("./stopwords");
@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/generate", (req, res) => {
-  const { category, country, keyword } = req.query;
+  const { category, country, keywords } = req.query;
   wordpos = new WordPOS({ stopwords });
 
   let re = /( - [A-Z])|( \| [A-Z])|( - [0-9])|( \| [0-9])/g;
@@ -30,7 +30,7 @@ app.get("/generate", (req, res) => {
       language: "en",
       pageSize: 100,
       ...(country && { country: country }),
-      ...(keyword && { q: keyword }),
+      ...(keywords && { q: keywords }),
     })
     .then((response) => {
       const { articles } = response;
@@ -72,7 +72,10 @@ app.get("/generate", (req, res) => {
         })
       ).then((x) => {
         countArr.sort((first, second) => second.count - first.count);
-        res.json({ wordmap: [...wordmap], countArr });
+        if (countArr.length >= 100) {
+          countArr = countArr.slice(0, 100);
+        }
+        res.json({ countArr });
       });
     });
 });
