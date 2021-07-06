@@ -8,7 +8,11 @@ import {
   Typography,
 } from "@material-ui/core";
 
+import useStyles from "../styles";
+
 const QueriesForm = ({ queries, generateCloud }) => {
+  const classes = useStyles();
+
   const submitForm = (e) => {
     e.preventDefault();
     generateCloud();

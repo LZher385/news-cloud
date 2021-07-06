@@ -1,6 +1,10 @@
 import React from "react";
 
+import useStyles from "../styles";
+
 const KeywordData = ({ showKeywordModal, setShowKeywordModal, keywordObj }) => {
+  const classes = useStyles();
+
   const { keyword, titles, urls, descriptions, urlToImages } = keywordObj;
 
   return (

@@ -1,13 +1,16 @@
 import React from "react";
 import axios from "axios";
+import { Typography } from "@material-ui/core";
 
 import QueriesForm from "./QueriesForm";
 import KeywordData from "./KeywordData";
 import WordCloud from "./WordCloud";
-
-import { Typography } from "@material-ui/core";
+import ErrorPopup from "./ErrorPopup";
+import useStyles from "../styles";
 
 const Home = () => {
+  const classes = useStyles();
+
   const queries = React.useRef({
     country: "",
     category: "general",
@@ -18,14 +21,13 @@ const Home = () => {
   const [keywordObj, setKeywordObj] = React.useState(null);
   const [showKeywordModal, setShowKeywordModal] = React.useState(false);
   const [showCloud, setShowCloud] = React.useState(false);
+  const [error, setError] = React.useState(null);
 
   React.useEffect(() => {
     generateCloud();
   }, []);
 
   const generateCloud = () => {
-    console.log("queries");
-    console.log(queries.current);
     setShowCloud(false);
     axios
       .get(
@@ -33,12 +35,12 @@ const Home = () => {
       )
       .then((res) => {
         const { countArr } = res.data; //wordmap not needed at all?
-        console.log(res.data);
+        if (countArr.length === 0) {
+          setError({ text: "No results!" });
+        }
         dataArr.current = countArr;
-        console.log(dataArr.current);
         setData(
           dataArr.current.map((obj, index) => {
-            // should probably slice in backend to reduce data
             return { value: obj.keyword, count: obj.count, key: `${index}` };
           })
         );
@@ -63,6 +65,7 @@ const Home = () => {
         ></KeywordData>
       )}
       <QueriesForm queries={queries} generateCloud={generateCloud} />
+      {error && <ErrorPopup error={error} setError={setError} />}
     </div>
   );
 };
