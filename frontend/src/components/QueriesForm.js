@@ -2,7 +2,8 @@ import React from "react";
 import {
   TextField,
   Button,
-  NativeSelect,
+  Select,
+  MenuItem,
   InputLabel,
   FormControl,
   Typography,
@@ -19,11 +20,13 @@ const QueriesForm = ({ queries, generateCloud }) => {
   };
   return (
     <div>
-      <Typography variant="h4">Search options</Typography>
-      <form onSubmit={submitForm}>
+      <Typography variant="h4" align="center">
+        Search Options
+      </Typography>
+      <form noValidate autoComplete="off" onSubmit={submitForm}>
         <FormControl>
-          <InputLabel id="countriesList">Select a country</InputLabel>
-          <NativeSelect
+          <InputLabel id="countriesList">Country</InputLabel>
+          <Select
             labelId="countriesList"
             id="countriesListSelect"
             defaultValue="global"
@@ -34,19 +37,19 @@ const QueriesForm = ({ queries, generateCloud }) => {
               })
             }
           >
-            <option value="global">Global</option>
-            <option value="au">Australia</option>
-            <option value="ca">Canada</option>
-            <option value="my">Malaysia</option>
-            <option value="nz">New Zealand</option>
-            <option value="sg">Singapore</option>
-            <option value="gb">United Kingdom</option>
-            <option value="us">America</option>
-          </NativeSelect>
+            <MenuItem value="global">Global</MenuItem>
+            <MenuItem value="au">Australia</MenuItem>
+            <MenuItem value="ca">Canada</MenuItem>
+            <MenuItem value="my">Malaysia</MenuItem>
+            <MenuItem value="nz">New Zealand</MenuItem>
+            <MenuItem value="sg">Singapore</MenuItem>
+            <MenuItem value="gb">United Kingdom</MenuItem>
+            <MenuItem value="us">America</MenuItem>
+          </Select>
         </FormControl>
         <FormControl>
-          <InputLabel id="categoryList">Select a category</InputLabel>
-          <NativeSelect
+          <InputLabel id="categoryList">Category</InputLabel>
+          <Select
             labelId="categoryList"
             id="categoryListSelect"
             defaultValue="general"
@@ -57,21 +60,22 @@ const QueriesForm = ({ queries, generateCloud }) => {
               })
             }
           >
-            <option value="business">Business</option>
-            <option value="entertainment">Entertainment</option>
-            <option value="general">General</option>
-            <option value="health">Health</option>
-            <option value="science">Science</option>
-            <option value="sports">Sports</option>
-            <option value="technology">Technology</option>
-          </NativeSelect>
+            <MenuItem value="business">Business</MenuItem>
+            <MenuItem value="entertainment">Entertainment</MenuItem>
+            <MenuItem value="general">General</MenuItem>
+            <MenuItem value="health">Health</MenuItem>
+            <MenuItem value="science">Science</MenuItem>
+            <MenuItem value="sports">Sports</MenuItem>
+            <MenuItem value="technology">Technology</MenuItem>
+          </Select>
         </FormControl>
-        <FormControl>
+        <FormControl className={classes.form_component}>
           <TextField
             id="keywordsField"
             type="text"
             name="keywords"
             label="Keyword(s)"
+            helperText="Space-separated keywords"
             onChange={(e) => {
               queries.current = {
                 ...queries.current,

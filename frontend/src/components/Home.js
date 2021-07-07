@@ -56,6 +56,9 @@ const Home = () => {
 
   return (
     <div>
+      <QueriesForm queries={queries} generateCloud={generateCloud} />
+      {error && <ErrorPopup error={error} setError={setError} />}
+
       {showCloud && <WordCloud keywordClick={keywordClick} data={data} />}
       {showKeywordModal && (
         <KeywordData
@@ -64,8 +67,6 @@ const Home = () => {
           setShowKeywordModal={setShowKeywordModal}
         ></KeywordData>
       )}
-      <QueriesForm queries={queries} generateCloud={generateCloud} />
-      {error && <ErrorPopup error={error} setError={setError} />}
     </div>
   );
 };
