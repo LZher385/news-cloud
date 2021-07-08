@@ -1,84 +1,55 @@
 import React from "react";
 import useStyles from "../styles";
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
+import Button from "@material-ui/core/Button";
+import Popover from "@material-ui/core/Popover";
+import Typography from "@material-ui/core/Typography";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
-
-export default function KeywordData({ showKeywordModal, setShowKeywordModal, keywordObj }) {
+export default function KeywordData({
+  showKeywordModal,
+  setShowKeywordModal,
+  keywordObj,
+}) {
   // const classes = useStyles();
-  const { titles, urls, descriptions, urlToImages } = keywordObj;
+  const { titles, urls, descriptions, urlToImages, keyword } = keywordObj;
   const open = showKeywordModal;
-  const id = open ? 'simple-popover' : undefined;
 
   return (
     <div>
-
-      <Popover
-        id={id}
-        open={open}
-        //anchorEl={keywordObj.currentTarget}  //this thing doesn't work
-        onClose={() => setShowKeywordModal(false)}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-      >
-        {titles.map((title, index) => {
-
-          const [anchorEl, setAnchorEl] = React.useState(null);
-          const handlePopoverOpen = (event) => {
-            setAnchorEl(event.currentTarget);
-            console.log('hovering')
-          };
-
-          const handlePopoverClose = () => {
-            setAnchorEl(null);
-          };
-
-          const infoOpen = Boolean(anchorEl);
-
-          return (
-            <div>
-              <a
-              href={`${urls[index]}`}
-              aria-owns={infoOpen ? 'mouse-over-popover' : undefined}
-              aria-haspopup="true"
-              onMouseEnter={handlePopoverOpen}
-              onMouseLeave={handlePopoverClose}>
-                {title}
-              </a>
-
-              <Popover
-              id="mouse-over-popover"
-              open={infoOpen}
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              onClose={handlePopoverClose}
-              disableRestoreFocus>
-                <h3>{title}</h3>
-                <img alt={`${title}`} src={`${urlToImages[index]}`} />
-                <div>{`${descriptions[index]}`}</div>
-              </Popover>
-              
-            </div>
-          );
-        })}
-      </Popover>
+      <Dialog open={open}>
+        <DialogTitle id="scroll-dialog-title">{keyword}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="scroll-dialog-description" tabIndex={-1}>
+            {titles.map((title, index) => {
+              return (
+                <div>
+                  <a href={`${urls[index]}`}>{title}</a>
+                  <img
+                    width="100"
+                    height="100"
+                    alt={`${title}`}
+                    src={`${urlToImages[index]}`}
+                    style={{ display: "block" }}
+                  />
+                  <div>{`${descriptions[index]}`}</div>
+                </div>
+              );
+            })}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowKeywordModal(false)} color="primary">
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
-
 
 // import React from 'react';
 // import Popover from '@material-ui/core/Popover';
@@ -139,8 +110,6 @@ export default function KeywordData({ showKeywordModal, setShowKeywordModal, key
 //   );
 // }
 
-
-
 // const KeywordData = ({ showKeywordModal, setShowKeywordModal, keywordObj }) => {
 //   const classes = useStyles();
 
@@ -160,6 +129,3 @@ export default function KeywordData({ showKeywordModal, setShowKeywordModal, key
 //         );
 //       })}
 //     </div>
-//   );
-// };
-

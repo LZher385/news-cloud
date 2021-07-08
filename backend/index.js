@@ -72,9 +72,9 @@ app.get("/generate", (req, res) => {
         })
       ).then((x) => {
         countArr.sort((first, second) => second.count - first.count);
-        if (countArr.length >= 100) {
-          countArr = countArr.slice(0, 100);
-        }
+        //if (countArr.length >= 100) {
+        //  countArr = countArr.slice(0, 100);
+        //}
         res.json({ countArr });
       });
     });

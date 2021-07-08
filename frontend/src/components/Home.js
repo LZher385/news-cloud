@@ -22,6 +22,7 @@ const Home = () => {
   const [showKeywordModal, setShowKeywordModal] = React.useState(false);
   const [showCloud, setShowCloud] = React.useState(false);
   const [error, setError] = React.useState(null);
+  const [cloudSize, setCloudSize] = React.useState(100);
 
   React.useEffect(() => {
     generateCloud();
@@ -34,9 +35,12 @@ const Home = () => {
         `http://localhost:3001/generate?category=${queries.current.category}&country=${queries.current.country}&keywords=${queries.current.keywords}`
       )
       .then((res) => {
-        const { countArr } = res.data; //wordmap not needed at all?
+        var { countArr } = res.data; //wordmap not needed at all?
         if (countArr.length === 0) {
           setError({ text: "No results!" });
+        }
+        if (countArr.length >= cloudSize) {
+          countArr = countArr.slice(0, cloudSize);
         }
         dataArr.current = countArr;
         setData(
@@ -48,8 +52,6 @@ const Home = () => {
       });
   };
   const keywordClick = (tag) => {
-    console.log(`'${tag.value}' was selected`);
-    console.log(tag.key);
     setKeywordObj(dataArr.current[parseInt(tag.key, 10)]);
     setShowKeywordModal(true);
   };
