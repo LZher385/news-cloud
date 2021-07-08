@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
   form_component: {
     //margin: "3rem",
   },
-}));
 
+  typography: {
+    padding: theme.spacing(2),
+  },
+}));
 export default useStyles;
