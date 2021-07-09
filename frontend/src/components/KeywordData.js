@@ -14,7 +14,7 @@ export default function KeywordData({
   setShowKeywordModal,
   keywordObj,
 }) {
-  // const classes = useStyles();
+  const classes = useStyles();
   const { titles, urls, descriptions, urlToImages, keyword } = keywordObj;
   const open = showKeywordModal;
 

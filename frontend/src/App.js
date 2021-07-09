@@ -34,17 +34,22 @@ function App() {
     <ThemeProvider theme={theme}>
       <div>
         <AppBar position="static" className={classes.navbar}>
-          <Toolbar>
-            <LanguageIcon />
-            <Typography variant="h2" color="primary" className={classes.title}>
+          <Toolbar className={classes.toolbar}>
+            <LanguageIcon color="primary" fontSize="large" />
+            <Typography
+              variant="h3"
+              component="h1"
+              color="primary"
+              className={classes.title}
+            >
               News_Cloud
             </Typography>
           </Toolbar>
         </AppBar>
-        <Container>
+        <div>
           <Home />
           <About />
-        </Container>
+        </div>
       </div>
     </ThemeProvider>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Typography } from "@material-ui/core";
+import Container from "@material-ui/core/Container";
 
 import QueriesForm from "./QueriesForm";
 import KeywordData from "./KeywordData";
@@ -22,7 +23,7 @@ const Home = () => {
   const [showKeywordModal, setShowKeywordModal] = React.useState(false);
   const [showCloud, setShowCloud] = React.useState(false);
   const [error, setError] = React.useState(null);
-  const [cloudSize, setCloudSize] = React.useState(100);
+  const [cloudSize, setCloudSize] = React.useState(150);
 
   React.useEffect(() => {
     generateCloud();
@@ -45,7 +46,12 @@ const Home = () => {
         dataArr.current = countArr;
         setData(
           dataArr.current.map((obj, index) => {
-            return { value: obj.keyword, count: obj.count, key: `${index}` };
+            return {
+              props: { className: classes.tag },
+              value: obj.keyword,
+              count: obj.count,
+              key: `${index}`,
+            };
           })
         );
         setShowCloud(true);
@@ -58,10 +64,12 @@ const Home = () => {
 
   return (
     <div>
-      <QueriesForm queries={queries} generateCloud={generateCloud} />
+      <div className={classes.wordCloudOuterContainer}>
+        {showCloud && <WordCloud keywordClick={keywordClick} data={data} />}
+      </div>
       {error && <ErrorPopup error={error} setError={setError} />}
+      <QueriesForm queries={queries} generateCloud={generateCloud} />
 
-      {showCloud && <WordCloud keywordClick={keywordClick} data={data} />}
       {showKeywordModal && (
         <KeywordData
           keywordObj={keywordObj}
