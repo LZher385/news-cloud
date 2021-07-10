@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
-import { Typography } from "@material-ui/core";
+import { CircularProgress, Typography } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
-
+import Typing from 'react-typing-animation';
 import QueriesForm from "./QueriesForm";
 import KeywordData from "./KeywordData";
 import WordCloud from "./WordCloud";
@@ -65,7 +65,14 @@ const Home = () => {
   return (
     <div>
       <div className={classes.wordCloudOuterContainer}>
-        {showCloud && <WordCloud keywordClick={keywordClick} data={data} />}
+        {showCloud? 
+        <WordCloud keywordClick={keywordClick} data={data} />:
+        <div className={classes.loading}>
+          <span style={{fontFamily:'sans-serif',fontSize:50,color:'white'}}>Searching</span>
+          <Typing loop={true}>
+            <span style={{fontFamily:'fantasy',color:'white',fontSize:50,marginRight:20}}>...</span>
+          <Typing.Reset count={1} delay={500} /></Typing>
+        </div>}
       </div>
       {error && <ErrorPopup error={error} setError={setError} />}
       <QueriesForm queries={queries} generateCloud={generateCloud} />

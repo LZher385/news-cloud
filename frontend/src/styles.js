@@ -33,6 +33,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     overflow: "auto",
   },
-  tag: {},
+  loading: {
+    display:'flex',
+    fontSize:20,
+    justifyContent:'center',
+  }
 }));
 export default useStyles;
