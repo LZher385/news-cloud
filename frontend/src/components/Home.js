@@ -2,12 +2,13 @@ import React from "react";
 import axios from "axios";
 import { CircularProgress, Typography } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
-import Typing from 'react-typing-animation';
+import Typing from "react-typing-animation";
 import QueriesForm from "./QueriesForm";
 import KeywordData from "./KeywordData";
 import WordCloud from "./WordCloud";
 import ErrorPopup from "./ErrorPopup";
 import useStyles from "../styles";
+import Alert from "@material-ui/lab/Alert";
 
 const Home = () => {
   const classes = useStyles();
@@ -65,16 +66,37 @@ const Home = () => {
   return (
     <div>
       <div className={classes.wordCloudOuterContainer}>
-        {showCloud? 
-        <WordCloud keywordClick={keywordClick} data={data} />:
-        <div className={classes.loading}>
-          <span style={{fontFamily:'sans-serif',fontSize:50,color:'white'}}>Searching</span>
-          <Typing loop={true}>
-            <span style={{fontFamily:'fantasy',color:'white',fontSize:50,marginRight:20}}>...</span>
-          <Typing.Reset count={1} delay={500} /></Typing>
-        </div>}
+        {showCloud ? (
+          <WordCloud keywordClick={keywordClick} data={data} />
+        ) : (
+          <div className={classes.loading}>
+            <span
+              style={{ fontFamily: "sans-serif", fontSize: 50, color: "white" }}
+            >
+              Searching
+            </span>
+            <Typing loop={true}>
+              <span
+                style={{
+                  fontFamily: "fantasy",
+                  color: "white",
+                  fontSize: 50,
+                  marginRight: 20,
+                }}
+              >
+                ...
+              </span>
+              <Typing.Reset count={1} delay={500} />
+            </Typing>
+          </div>
+        )}
       </div>
-      {error && <ErrorPopup error={error} setError={setError} />}
+      {/*error && <ErrorPopup error={error} setError={setError} />*/}
+      {error && (
+        <Alert severity="info" onClose={() => setError(false)}>
+          No results found!
+        </Alert>
+      )}
       <QueriesForm queries={queries} generateCloud={generateCloud} />
 
       {showKeywordModal && (

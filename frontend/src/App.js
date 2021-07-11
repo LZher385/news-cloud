@@ -48,7 +48,7 @@ function App() {
         </AppBar>
         <div>
           <Home />
-          <About />
+          {/*<About />*/}
         </div>
       </div>
     </ThemeProvider>

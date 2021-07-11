@@ -3,11 +3,17 @@ import useStyles from "../styles";
 import Button from "@material-ui/core/Button";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Paper from "@material-ui/core/Paper";
 
 export default function KeywordData({
   showKeywordModal,
@@ -22,21 +28,25 @@ export default function KeywordData({
     <div>
       <Dialog open={open}>
         <DialogTitle id="scroll-dialog-title">{keyword}</DialogTitle>
-        <DialogContent>
+        <DialogContent className={classes.dialogContent}>
           <DialogContentText id="scroll-dialog-description" tabIndex={-1}>
             {titles.map((title, index) => {
               return (
-                <div>
-                  <a href={`${urls[index]}`}>{title}</a>
-                  <img
-                    width="100"
-                    height="100"
-                    alt={`${title}`}
-                    src={`${urlToImages[index]}`}
-                    style={{ display: "block" }}
-                  />
-                  <div>{`${descriptions[index]}`}</div>
-                </div>
+                <Card className={classes.card}>
+                  <CardContent>
+                    <CardMedia
+                      className={classes.cardImage}
+                      image={`${urlToImages[index]}`}
+                      title={`${title}`}
+                    />
+                    <Typography>
+                      <Link href={`${urls[index]}`} color="blue">
+                        {title}
+                      </Link>
+                    </Typography>
+                    <Typography>{`${descriptions[index]}`}</Typography>
+                  </CardContent>
+                </Card>
               );
             })}
           </DialogContentText>

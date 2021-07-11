@@ -20,11 +20,20 @@ const QueriesForm = ({ queries, generateCloud }) => {
   };
   return (
     <div>
-      <Typography variant="h4" align="center">
+      <Typography
+        variant="h4"
+        align="center"
+        className={classes.queriesFormTitle}
+      >
         Search Options
       </Typography>
-      <form noValidate autoComplete="off" onSubmit={submitForm}>
-        <FormControl>
+      <form
+        noValidate
+        autoComplete="off"
+        onSubmit={submitForm}
+        className={classes.form}
+      >
+        <FormControl className={classes.formComponent}>
           <InputLabel id="countriesList">Country</InputLabel>
           <Select
             labelId="countriesList"
@@ -47,7 +56,7 @@ const QueriesForm = ({ queries, generateCloud }) => {
             <MenuItem value="us">America</MenuItem>
           </Select>
         </FormControl>
-        <FormControl>
+        <FormControl className={classes.formComponent}>
           <InputLabel id="categoryList">Category</InputLabel>
           <Select
             labelId="categoryList"
@@ -69,7 +78,7 @@ const QueriesForm = ({ queries, generateCloud }) => {
             <MenuItem value="technology">Technology</MenuItem>
           </Select>
         </FormControl>
-        <FormControl className={classes.form_component}>
+        <FormControl className={classes.formComponent}>
           <TextField
             id="keywordsField"
             type="text"
@@ -84,7 +93,12 @@ const QueriesForm = ({ queries, generateCloud }) => {
             }}
           />
         </FormControl>
-        <Button color="primary" variant="contained" type="submit">
+        <Button
+          color="primary"
+          variant="outlined"
+          type="submit"
+          className={classes.submitButton}
+        >
           Generate news cloud
         </Button>
       </form>
