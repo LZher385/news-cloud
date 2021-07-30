@@ -65,6 +65,7 @@ const Home = () => {
 
   return (
     <div>
+      <QueriesForm queries={queries} generateCloud={generateCloud} />
       <div className={classes.wordCloudOuterContainer}>
         {showCloud ? (
           <WordCloud keywordClick={keywordClick} data={data} />
@@ -97,7 +98,7 @@ const Home = () => {
           No results found!
         </Alert>
       )}
-      <QueriesForm queries={queries} generateCloud={generateCloud} />
+      
 
       {showKeywordModal && (
         <KeywordData

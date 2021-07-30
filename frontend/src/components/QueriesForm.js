@@ -20,13 +20,6 @@ const QueriesForm = ({ queries, generateCloud }) => {
   };
   return (
     <div>
-      <Typography
-        variant="h4"
-        align="center"
-        className={classes.queriesFormTitle}
-      >
-        Search Options
-      </Typography>
       <form
         noValidate
         autoComplete="off"

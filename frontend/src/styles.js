@@ -2,16 +2,13 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   // Navbar
-  navbar: {
-    background: "#F3F4FC",
-  },
-  toolbar: {},
   title: {
-    fontWeight: "bold",
-    color: "#012641",
+    
     marginLeft: "1rem",
   },
-
+  lightSwitchText: {
+    color:'black',
+  },
   // Queriesform
   form: {
     textAlign: "center",
@@ -53,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 20,
     justifyContent: "center",
   },
-
   // KeywordData
   dialogContent: {
     background: "#422E75",
