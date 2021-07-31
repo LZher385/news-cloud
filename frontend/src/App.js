@@ -30,16 +30,21 @@ function App() {
     },
     palette: {
       primary: {
-        main: light?'#FFFFFF':'#000000'
+        main:light?'#000000':'#FFFFFF',
+      },
+    },
+    MuiTextField: {
+      primary: {
+        color:light?'#000000':'#FFFFFF',
       },
     },
   });
 
   return (
     <ThemeProvider theme={theme}>
-        <Box style={{display:'flex',flexDirection:'row'}} position="static">
+        <Box style={{padding:'2rem',backgroundColor:light?'#FFFFFF':'#000000',display:'flex',flexDirection:'row'}} position="static">
             <Box style={{display:'flex',flex:1,flexDirection:'row',alignItems:'center'}}>
-              <LanguageIcon color={light?'black':'white'} fontSize="large" />
+              <LanguageIcon style={{fill:light?'black':'white'}} fontSize="large" />
               <Typography
                 variant="h3"
                 style={{fontWeight: "bold",color:light?'black':'white'}}
@@ -48,12 +53,12 @@ function App() {
               </Typography>
             </Box>
             <Box style={{display:'flex',flex:1,flexDirection:'row',justifyContent:'flex-end',alignItems:'flex-end'}}>
-              <Typography style={{height:'50%',width:'20%',bcolor:light?'lack':'white'}}>Dark mode</Typography>
+              <Typography style={{height:'50%',width:'20%',color:light?'black':'white'}}>{light?'Light mode':'Dark mode'}</Typography>
               <Switch style={{flex:1}} onChange={() => setLight(!light)}/>
             </Box>
         </Box>
-        <Box style={{backgroundColor:light?'#FFFFFF':'#000000'}}>
-          <Home />
+        <Box style={{flex:1,backgroundColor:light?'#FFFFFF':'#000000'}}>
+          <Home light={light}/>
           <About light={light}/>
         </Box>
     </ThemeProvider>

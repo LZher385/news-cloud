@@ -10,7 +10,7 @@ import ErrorPopup from "./ErrorPopup";
 import useStyles from "../styles";
 import Alert from "@material-ui/lab/Alert";
 
-const Home = () => {
+const Home = ({light}) => {
   const classes = useStyles();
 
   const queries = React.useRef({
@@ -65,7 +65,7 @@ const Home = () => {
 
   return (
     <div>
-      <QueriesForm queries={queries} generateCloud={generateCloud} />
+      <QueriesForm light={light} queries={queries} generateCloud={generateCloud} />
       <div className={classes.wordCloudOuterContainer}>
         {showCloud ? (
           <WordCloud keywordClick={keywordClick} data={data} />

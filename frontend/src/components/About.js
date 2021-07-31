@@ -16,7 +16,7 @@ const About = ({light}) => {
 
 
   return (
-    <div style={{paddingLeft:'10%',paddingRight:'10%'}}>
+    <div style={{paddingLeft:'10%',paddingRight:'10%',paddingTop:'3rem',paddingBottom:'3rem'}}>
       <LightTextTypography variant="h3">About</LightTextTypography>
       <LightTextTypography variant="body1" color={'blue'}>
         News Cloud is designed to help streamline the process of researching 

@@ -11,7 +11,7 @@ import {
 
 import useStyles from "../styles";
 
-const QueriesForm = ({ queries, generateCloud }) => {
+const QueriesForm = ({ light, queries, generateCloud }) => {
   const classes = useStyles();
 
   const submitForm = (e) => {
@@ -27,8 +27,9 @@ const QueriesForm = ({ queries, generateCloud }) => {
         className={classes.form}
       >
         <FormControl className={classes.formComponent}>
-          <InputLabel id="countriesList">Country</InputLabel>
+          <InputLabel style={{color:light?'black':'white'}} id="countriesList">Country</InputLabel>
           <Select
+          style={{color:light?'black':'white'}}
             labelId="countriesList"
             id="countriesListSelect"
             defaultValue="global"
@@ -50,8 +51,9 @@ const QueriesForm = ({ queries, generateCloud }) => {
           </Select>
         </FormControl>
         <FormControl className={classes.formComponent}>
-          <InputLabel id="categoryList">Category</InputLabel>
+          <InputLabel style={{color:light?'black':'white'}} id="categoryList">Category</InputLabel>
           <Select
+            style={{color:light?'black':'white'}}
             labelId="categoryList"
             id="categoryListSelect"
             defaultValue="general"
@@ -71,8 +73,14 @@ const QueriesForm = ({ queries, generateCloud }) => {
             <MenuItem value="technology">Technology</MenuItem>
           </Select>
         </FormControl>
-        <FormControl className={classes.formComponent}>
+        <FormControl color='primary' className={classes.formComponent}>
           <TextField
+            InputLabelProps={{
+              className: light?classes.lightField:classes.darkField
+            }}
+            FormHelperTextProps={{
+              className: light?classes.lightField:classes.darkField
+            }}
             id="keywordsField"
             type="text"
             name="keywords"
@@ -87,12 +95,12 @@ const QueriesForm = ({ queries, generateCloud }) => {
           />
         </FormControl>
         <Button
-          color="primary"
+          color='primary'
           variant="outlined"
           type="submit"
           className={classes.submitButton}
         >
-          Generate news cloud
+        Generate news cloud
         </Button>
       </form>
     </div>

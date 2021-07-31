@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   // Navbar
   title: {
-    
     marginLeft: "1rem",
   },
   lightSwitchText: {
@@ -26,7 +25,12 @@ const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),
   },
-
+  lightField: {
+    color: 'black',
+  },
+  darkField: {
+    color: '#FFFFFF',
+  },
   // WordCloud
   wordCloudOuterContainer: {
     background: "#422E75",
